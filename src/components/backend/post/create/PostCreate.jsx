@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { handleChangePostInput, storePostAction } from '../../../../redux/backend/post/PostAction';
+import {emptyPostMessage, handleChangePostInput, storePostAction} from '../../../../redux/backend/post/PostAction';
 
 const PostCreate = withRouter(({ history, props }) => {
     const { register, handleSubmit, errors, getValues, reset } = useForm();
@@ -25,16 +25,13 @@ const PostCreate = withRouter(({ history, props }) => {
         if (typeof postAddMessage !== 'undefined' || postAddMessage !== null) {
             if (postAddStatus && postAddMessage.length > 0) {
                 // We can push to list OR, make feilds empty.
-                reset({
-                    title: "",
-                    body: ""
-                });
-                history.push("/posts"); 
+                dispatch(emptyPostMessage());
+                history.push("/posts");
             }
         }
     }, [postAddStatus, postAddMessage, history]);
 
-    return ( 
+    return (
         <>
             {/* <!-- Page Header --> */}
                 <div className="content bg-gray-lighter">
@@ -68,12 +65,12 @@ const PostCreate = withRouter(({ history, props }) => {
                                             <div className="col-sm-12">
                                                 <div className="form-material form-material-primary">
                                                     <label htmlFor="post-title">Title</label>
-                                                    <input className="form-control" 
-                                                        type="text" id="post-title" 
-                                                        name="title" 
+                                                    <input className="form-control"
+                                                        type="text" id="post-title"
+                                                        name="title"
                                                         placeholder="Post Title"
-                                                        required="" 
-                                                        aria-required="true" 
+                                                        required=""
+                                                        aria-required="true"
                                                         ref={register({
                                                             required: 'Please give post title'
                                                         })}
@@ -82,11 +79,11 @@ const PostCreate = withRouter(({ history, props }) => {
                                                         autoComplete="name"
                                                     />
                                                     {
-                                                        errors.title && 
+                                                        errors.title &&
                                                         <div className="text-danger text-sm">{errors.title.message}</div>
                                                     }
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
@@ -94,14 +91,14 @@ const PostCreate = withRouter(({ history, props }) => {
                                             <div className="col-sm-12">
                                                 <div className="form-material form-material-primary">
                                                     <label htmlFor="post-body">Description</label>
-                                                    <textarea 
-                                                        className="form-control" 
-                                                        type="text" 
-                                                        id="post-body" 
-                                                        name="body" 
-                                                        placeholder="Post Description" 
-                                                        required="" 
-                                                        aria-required="true" 
+                                                    <textarea
+                                                        className="form-control"
+                                                        type="text"
+                                                        id="post-body"
+                                                        name="body"
+                                                        placeholder="Post Description"
+                                                        required=""
+                                                        aria-required="true"
                                                         ref={register({
                                                             required: 'Please give post description'
                                                         })}
@@ -109,24 +106,24 @@ const PostCreate = withRouter(({ history, props }) => {
                                                         value={postData.body}
                                                     ></textarea>
                                                     {
-                                                        errors.body && 
+                                                        errors.body &&
                                                         <div className="text-danger text-sm">{errors.body.message}</div>
                                                     }
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
                                         <div className="form-group">
                                             <div className="col-sm-9">
                                             {
-                                                !isLoading && 
+                                                !isLoading &&
                                                 <button className="btn btn-sm btn-primary" type="submit">
                                                     Submit
                                                 </button>
                                             }
                                             {
-                                                isLoading && 
+                                                isLoading &&
                                                 <button className="btn btn-sm btn-primary" type="button" disabled>
                                                     Submitting ...
                                                 </button>
@@ -143,5 +140,5 @@ const PostCreate = withRouter(({ history, props }) => {
         </>
      );
 })
- 
+
 export default PostCreate;

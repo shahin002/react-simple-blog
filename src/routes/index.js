@@ -4,6 +4,9 @@ import DashboardContainer from "../views/backend/dashboard/DashboardContainer";
 import PostAddContainer from "../views/backend/post/PostAddContainer";
 import PostEditContainer from "../views/backend/post/PostEditContainer";
 import PostListContainer from "../views/backend/post/PostListContainer";
+import UserListContainer from "../views/backend/users/UserListContainer";
+import UserAddContainer from "../views/backend/users/UserAddContainer";
+import UserEditContainer from "../views/backend/users/UserEditContainer";
 
 const routes = [
   {
@@ -42,6 +45,26 @@ const routes = [
     path: "/posts/edit/:id",
     name: "Post Edit Component",
     component: PostEditContainer,
+    exact: true,
+  },
+
+  /*** Users Routes ***/
+  {
+    path: "/users",
+    name: "User Component",
+    component: UserListContainer,
+    exact: true,
+  },
+  {
+    path: "/users/create",
+    name: "User Create Component",
+    component: UserAddContainer,
+    exact: true,
+  },
+  {
+    path: "/users/edit/:id",
+    name: "User Edit Component",
+    component: UserEditContainer,
     exact: true,
   },
 ];

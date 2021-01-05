@@ -216,3 +216,7 @@ export const deletePostAction = (id) => async(dispatch) => {
     data.isLoading = false;
     dispatch({ type: Types.POST_DELETE, payload: data });
 };
+
+export const emptyPostMessage = () => (dispatch) => {
+    dispatch({ type: Types.EMPTY_POST_MESSAGE, payload: null });
+};

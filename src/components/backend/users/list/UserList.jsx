@@ -2,18 +2,18 @@ import React, { useEffect }  from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import Swal from 'sweetalert2'
-import { getPostAction, deletePostAction } from '../../../../redux/backend/post/PostAction';
+import { getUserAction, deleteUserAction } from '../../../../redux/backend/user/UserAction';
 
-const PostList = () => {
+const UserList = () => {
     const dispatch = useDispatch();
-    const isLoading = useSelector((state) => state.post.isLoading);
-    const postList = useSelector((state) => state.post.postList);
+    const isLoading = useSelector((state) => state.user.isLoading);
+    const userList = useSelector((state) => state.user.userList);
 
     useEffect(() => {
-        dispatch(getPostAction());
+        dispatch(getUserAction());
     }, []);
 
-    const deletePost = (id) => {
+    const deleteUser = (id) => {
         Swal.fire({
             title: 'Error!',
             text: 'Do you want to continue',
@@ -24,7 +24,7 @@ const PostList = () => {
             cancelButtonText: 'No'
           }).then((isConfirm)=>{
             if (isConfirm){
-                dispatch(deletePostAction(id));
+                dispatch(deleteUserAction(id));
             }
         });
     }
@@ -43,23 +43,27 @@ const PostList = () => {
                 <thead>
                     <tr>
                         <th>Sl</th>
-                        <th>Title</th>
-                        <th>Body</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Extra Permission</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        postList.map((post, index) => (
+                        userList.map((user, index) => (
                             <tr key={index}>
                                 <td>{index+1}</td>
-                                <td>{post.title}</td>
-                                <td>{post.body}</td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>{Array.prototype.map.call(user.roles, s => s.display_name).join(", ")}</td>
+                                <td>{Array.prototype.map.call(user.extra_permissions, s => s.display_name).join(", ")}</td>
                                 <td>
-                                    <button className="btn" onClick={() => deletePost(post.id)}>
+                                    <button className="btn" onClick={() => deleteUser(user.id)}>
                                         <i className="fa fa-trash text-danger"></i>
                                     </button>
-                                    <Link to={`/posts/edit/${post.id}`} className="btn ml-1">
+                                    <Link to={`/users/edit/${user.id}`} className="btn ml-1">
                                         <i className="fa fa-edit text-success"></i>
                                     </Link>
                                 </td>
@@ -73,4 +77,4 @@ const PostList = () => {
      );
 }
 
-export default PostList;
+export default UserList;

@@ -1,21 +1,21 @@
 import React from 'react';
 import MainLayout from '../../../components/backend/layouts/base-content/MainLayout';
-import PostList from '../../../components/backend/post/list/PostList';
+import UserList from "../../../components/backend/users/list/UserList";
 import {Link} from "react-router-dom";
 
-const PostListContainer = () => {
+const UserListContainer = () => {
     return (
     <MainLayout>
         <>
             <div className="block">
                 <div className="block-content">
                     <div className="block-header">
-                        <h3 className="block-title col-md-6">Post List</h3>
-                        <Link to="/posts/create" className="pull-right btn btn-primary btn-rounded">Add
-                            Post
+                        <h3 className="block-title col-md-6">User List</h3>
+                        <Link to="/users/create" className="pull-right btn btn-primary btn-rounded">Add
+                            User
                         </Link>
                     </div>
-                    <PostList />
+                    <UserList />
                 </div>
             </div>
         </>
@@ -24,4 +24,4 @@ const PostListContainer = () => {
     );
 }
 
-export default PostListContainer;
+export default UserListContainer;

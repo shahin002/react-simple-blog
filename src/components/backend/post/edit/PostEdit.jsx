@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, useParams, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { getPostDetailAction, handleChangePostInput, postUpdateAction, storePostAction } from '../../../../redux/backend/post/PostAction';
+import {
+    emptyPostMessage,
+    getPostDetailAction,
+    handleChangePostInput,
+    postUpdateAction
+} from '../../../../redux/backend/post/PostAction';
 
 const PostEdit = withRouter(({ history, match }, props) => {
     const { id } = useParams();
@@ -26,7 +31,8 @@ const PostEdit = withRouter(({ history, match }, props) => {
 
         if (typeof postUpdateMessage !== 'undefined' || postUpdateMessage !== null) {
             if (postUpdateStatus && postUpdateMessage.length > 0) {
-                history.push("/posts"); 
+                dispatch(emptyPostMessage());
+                history.push("/posts");
             }
         }
     }, [postUpdateStatus, postUpdateMessage]);
@@ -113,13 +119,13 @@ const PostEdit = withRouter(({ history, match }, props) => {
                                     <div className="form-group">
                                         <div className="col-sm-9">
                                             {
-                                                !isLoading && 
+                                                !isLoading &&
                                                 <button className="btn btn-sm btn-primary" type="submit">
                                                     Submit
                                                 </button>
                                             }
                                             {
-                                                isLoading && 
+                                                isLoading &&
                                                 <button className="btn btn-sm btn-primary" type="button" disabled>
                                                     Submitting ...
                                                 </button>
